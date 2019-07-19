@@ -1,0 +1,876 @@
+@echo off 
+cls
+title QuickPCInfo by: Richard Santos
+
+goto main
+  _________________________________________________________________________________________________________________________________
+Contact Info: 
+Author: Richard Santos 
+BBA-MIS
+rsabo2018@gmail.com                           
+                                         about the script
+
+
+This program was made with the intention of helping technicians in the collection of computer data, 
+working with speed, portability, and code visibility.
+
+
+                                          The Benefits are: 
+
+1.  Size, it is just 31.0 k. 
+2.  Portable, It is just a text file.
+3.  Security, you can see the clean code with no hidden process and services like other software, it works with Windows Builtin Commands. 
+4.  It is free for anyone. 
+5.  HTML report format.
+6.  You can print or change to a pdf the computer information report.
+7.  Only the report file stays in the computer. 
+8.  This script provides usefull network and files information. 
+9.  Organized by tables. 
+
+
+Note: change the path if needed to use with diferent Windows Version
+
+:main 
+goto section1
+_____________________________________________________________________________________________________________________
+                                           CREATING A TEMPORARY FOLDER & DELETING PREVIOUS REPORT
+_______________________________________________________________________________________________________________________
+:section1
+if exist  %TEMP%\computerinfo.txt ( 
+    del /f  %TEMP%\computerinfo.txt
+    systeminfo >> %TEMP%\computerinfo.txt
+) else (
+  systeminfo >> %TEMP%\computerinfo.txt
+)
+if exist   %userprofile%\desktop\report.html (
+    del /f   %userprofile%\desktop\report.html
+  
+) else (
+goto origin
+ )
+:origin
+goto section2
+_____________________________________________________________________________________________________________________
+
+                                           Head, Title and Styles 
+_______________________________________________________________________________________________________________________
+:section2
+echo ^<html^>  >>   %userprofile%/desktop/report.html
+echo ^<head^>  >> %userprofile%/desktop/report.html
+echo ^<title^>  >> %userprofile%/desktop/report.html
+echo FastInfoPC   >> %userprofile%/desktop/report.html
+echo ^</title^>  >> %userprofile%/desktop/report.html
+echo ^<style^> >> %userprofile%/desktop/report.html
+echo table, th, td ^{  >> %userprofile%/desktop/report.html
+ echo  border: 1px solid black; >> %userprofile%/desktop/report.html
+echo font-size: 16pt; >> %userprofile%/desktop/report.html
+echo ^} >> %userprofile%/desktop/report.html
+
+echo table ^{  >> %userprofile%/desktop/report.html
+ echo align:center; >> %userprofile%/desktop/report.html
+echo background-color:white; >> %userprofile%/desktop/report.html
+echo padding: 25px; >> %userprofile%/desktop/report.html
+echo border-radius: 25px; >>  %userprofile%/desktop/report.html
+echo border-color:black; >>  %userprofile%/desktop/report.html
+echo ^} >> %userprofile%/desktop/report.html
+
+
+echo div ^{  >> %userprofile%/desktop/report.html
+ echo align:center; >> %userprofile%/desktop/report.html
+echo ^} >> %userprofile%/desktop/report.html
+echo p ^{  >> %userprofile%/desktop/report.html
+echo font-size: 16pt; >> %userprofile%/desktop/report.html
+echo text-align:center; >> %userprofile%/desktop/report.html
+echo ^} >> %userprofile%/desktop/report.html
+
+
+echo h1 ^{  >> %userprofile%/desktop/report.html
+echo font-size: 46pt; >> %userprofile%/desktop/report.html
+echo text-align:center; >> %userprofile%/desktop/report.html
+
+echo ^} >> %userprofile%/desktop/report.html
+echo body ^{ >> %userprofile%/desktop/report.html
+
+echo ^} >> %userprofile%/desktop/report.html
+echo ^</style^> >> %userprofile%/desktop/report.html
+echo ^</head^>  >> %userprofile%/desktop/report.html
+goto section3
+_____________________________________________________________________________________________________________________
+
+                                               MAIN BODY HTML tag
+_______________________________________________________________________________________________________________________
+:section3
+echo ^<body style="background-color:white;font-family:georgia,garamond;"^>  >> %userprofile%/desktop/report.html
+goto section4
+_____________________________________________________________________________________________________________________
+
+                                              Printing Function  
+_____________________________________________________________________________________________________________________
+:section4
+echo ^<button style="font-weight: bold; background-color:black;font-size: 24px; color:white;" onclick="myFunction()"^>Print this page^</button^> >> %userprofile%/desktop/report.html
+echo ^<script^> >>%userprofile%/desktop/report.html
+echo function myFunction() ^{ >> %userprofile%/desktop/report.html
+echo  window.print(); >> %userprofile%/desktop/report.html
+echo ^} >> %userprofile%/desktop/report.html
+echo ^</script^> >> %userprofile%/desktop/report.html
+goto section5
+_____________________________________________________________________________________________________________________
+
+                                              Report Titles,Date & Time
+ _______________________________________________________________________________________________________________________
+:section5
+ echo ^<h1 style="color:DF0101;"^>  >> %userprofile%/desktop/report.html
+echo ^<center^> >> %userprofile%/desktop/report.html
+echo QuickPCInfo  >> %userprofile%/desktop/report.html  
+echo ^</center^> >> %userprofile%/desktop/report.html
+echo ^</h1^>  >> %userprofile%/desktop/report.html
+echo ^<center^> >> %userprofile%/desktop/report.html
+
+echo ^<p style="color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Report Date and Time:  >> %userprofile%/desktop/report.html
+date /T >> %userprofile%/desktop/report.html
+time /T >> %userprofile%/desktop/report.html
+echo ^</p^> >> %userprofile%/desktop/report.html
+
+echo ^<p style="color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo By: Richard Santos  >> %userprofile%/desktop/report.html
+echo ^</p^> >> %userprofile%/desktop/report.html
+echo ^</center^> >> %userprofile%/desktop/report.html
+goto section6
+_____________________________________________________________________________________________________________________
+
+                                             Main Table  
+_______________________________________________________________________________________________________________________
+:section6
+echo ^<div^> >> %userprofile%/desktop/report.html
+echo ^<table align="center"^>    >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style=" color:white;font-weight: bold; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Operating System Info >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Description >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ echo Username  >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo %username% >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ echo Computer Name >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+hostname >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ echo Registered Organization >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt | findstr "Registered.Organization" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ echo OS Name: >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt | findstr "OS.Name" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+ 
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ echo OS Version: >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt | findstr "OS.Version" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo OS Manufacturer: >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt | findstr "OS.Manufacturer" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo Product ID: >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt| findstr "Product.ID" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+
+
+echo ^</table^> >> %userprofile%/desktop/report.html
+goto section7
+_____________________________________________________________________________________________________________________
+
+                                             Hardware Information
+_______________________________________________________________________________________________________________________
+:section7
+
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+
+
+echo ^<table align="center"^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Hardware Information >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt | findstr "System.Manufacturer" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt| findstr "System.Model" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >>%userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt | findstr "System.Type" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt | findstr "Boot.Device" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^</table^> >> %userprofile%/desktop/report.html
+
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+
+goto section8
+_____________________________________________________________________________________________________________________
+
+                                               Memory Information   
+_______________________________________________________________________________________________________________________
+:section8
+
+echo ^<table align="center"^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Memory Information >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic memorychip get manufacturer >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic memorychip get partnumber >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic memorychip get Devicelocator >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic memorychip get serialnumber >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic memorychip get speed >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic memorychip get datawidth >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt| findstr "Available.Physical.Memory" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt| findstr "Total.Physical.Memory" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt| findstr "Virtual.Memory:.Max.Size:" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt| findstr "Virtual.Memory:.In.Use:" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+echo ^</table^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+goto section9
+_____________________________________________________________________________________________________________________
+
+                                           cpu information  
+_______________________________________________________________________________________________________________________
+:section9
+echo ^<table align="center"^>  >> %userprofile%/desktop/report.html
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo CPU information >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ type %TEMP%\computerinfo.txt| findstr "Processor(s)" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ wmic cpu get name >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ wmic cpu get caption >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ wmic cpu get currentclockspeed >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ wmic cpu get maxclockspeed >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ wmic cpu get processorid >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ wmic cpu get processortype >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+ wmic cpu get cpustatus >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^</table style="align:center;"^>  >> %userprofile%/desktop/report.html
+
+
+rem _____________________________________________________________________________________________________________________
+
+rem                                           Monitor information
+rem _______________________________________________________________________________________________________________________
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+
+echo ^<table align="center"^>  >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Monitor Information >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get name >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get monitortype >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get monitormanufacturer >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get displaytype >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get PixelsPerXLogicalInch >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get PixelsPerYLogicalInch >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get ScreenHeight >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get ScreenWidth >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get deviceid >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic desktopmonitor get pnpdeviceid >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+
+echo ^</table^>  >> %userprofile%/desktop/report.html
+
+
+
+
+
+
+
+rem _____________________________________________________________________________________________________________________
+
+rem                                           Bios Information 
+rem _______________________________________________________________________________________________________________________
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<table align="center"^>  >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Bios Information >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt | findstr "BIOS.Version" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic bios get name >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic bios get serialnumber >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+echo ^</table^>  >> %userprofile%/desktop/report.html
+
+rem _____________________________________________________________________________________________________________________
+
+rem                                           Bios Information product key
+rem _______________________________________________________________________________________________________________________
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+
+echo ^<table align="center"^>  >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo BIOS OEM KEY >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic path softwarelicensingservice get OA3xOriginalProductKey >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^</table^>  >> %userprofile%/desktop/report.html
+rem _____________________________________________________________________________________________________________________
+
+rem                                               Domain and Groups   
+rem _______________________________________________________________________________________________________________________
+
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<table align="center"^>  >>%userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Group Information >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+type %TEMP%\computerinfo.txt| findstr "Domain" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic computersystem get partofdomain >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic computersystem get primaryownername >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^</table^>  >> %userprofile%/desktop/report.html
+rem _____________________________________________________________________________________________________________________
+
+rem                                           Graphic Card Information
+rem _______________________________________________________________________________________________________________________
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+
+echo ^<table align="center"^>  >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Graphic Card Information >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+
+wmic path win32_VideoController get name   >> %userprofile%/desktop/report.html 
+
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic path win32_VideoController get MaxRefreshRate   >> %userprofile%/desktop/report.html 
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic path win32_VideoController get adapterram >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic path win32_VideoController get CurrentBitsPerPixel >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic path win32_VideoController get CurrentHorizontalResolution >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic path win32_VideoController get CurrentverticalResolution >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+echo ^</table^>  >> %userprofile%/desktop/report.html
+rem _____________________________________________________________________________________________________________________
+
+rem                                           Drives 
+rem _______________________________________________________________________________________________________________________
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+
+echo ^<table align="center"^>  >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Available Drives >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+wmic logicaldisk get name >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^</table^>  >> %userprofile%/desktop/report.html
+rem _____________________________________________________________________________________________________________________
+
+rem                                           motherboard devices 
+rem _______________________________________________________________________________________________________________________
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+
+echo ^<table align="center"^>  >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Onboard Adapters >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+wmic onboarddevice   >> %userprofile%/desktop/report.html 
+
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^</table^>  >> %userprofile%/desktop/report.html
+
+
+rem _____________________________________________________________________________________________________________________
+
+rem                                           Time Zones 
+rem _______________________________________________________________________________________________________________________
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+
+echo ^<table align="center"^>  >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Time Zone >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+wmic timezone get caption   >> %userprofile%/desktop/report.html 
+
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^</table^>  >> %userprofile%/desktop/report.html
+rem _____________________________________________________________________________________________________________________
+
+rem                                           Network 
+rem _______________________________________________________________________________________________________________________
+echo ^<br^> >> %userprofile%/desktop/report.html
+echo ^<br^> >> %userprofile%/desktop/report.html
+
+echo ^<table align="center"^>  >> %userprofile%/desktop/report.html
+
+echo ^<tr^> >> %userprofile%/desktop/report.html
+echo ^<th^> >> %userprofile%/desktop/report.html
+echo Network Information >> %userprofile%/desktop/report.html
+echo ^</th^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td style=" color: white; font-weight: bold; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo  IPv4 Address >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+ipconfig | findstr "IPv4.Address" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Mac Addresses >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+getmac /V /NH  | findstr "Ethernet" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+getmac /V /NH  | findstr "Wi-Fi" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+rem getting DHCP server info
+
+echo ^<td style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo  DHCP Server Information >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+ipconfig /all | findstr "DHCP.Server" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+rem finding Subnet Mask
+
+
+echo ^<td style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo  Subnet Mask >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+ipconfig | findstr "Subnet.Mask" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+rem finding default gateway
+
+echo ^<td style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Default Gateway >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+ipconfig /all | findstr "Default.Gateway" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+rem Public Ip address using myip.opendns.com 
+
+echo ^<td style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Public IP address >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+nslookup myip.opendns.com. resolver1.opendns.com | findstr "Address:" >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+rem Network speed 
+
+echo ^<td style="font-weight: bold; color:white; background-color:0B0B3B;"^> >> %userprofile%/desktop/report.html
+echo Network Speed >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+echo ^<td^> >> %userprofile%/desktop/report.html
+echo ^|  >> %userprofile%/desktop/report.html 
+wmic NIC where NetEnabled=true get Name, Speed >> %userprofile%/desktop/report.html
+echo ^</td^> >> %userprofile%/desktop/report.html
+echo ^</tr^> >> %userprofile%/desktop/report.html
+
+
+
+echo ^</table^>  >> %userprofile%/desktop/report.html
+
+
+rem _____________________________________________________________________________________________________________________
+
+rem                                           End of HTML,DIV, AND BODY
+rem _______________________________________________________________________________________________________________________
+
+
+echo ^</div^> >> %userprofile%/desktop/report.html
+echo ^</body^>  >> %userprofile%/desktop/report.html
+echo ^</html^>  >> %userprofile%/desktop/report.html
+rem _____________________________________________________________________________________________________________________
+
+rem                                           Removing Temporary Files 
+rem _______________________________________________________________________________________________________________________
+
+
+
+
+del /f %TEMP%\computerinfo.txt
+
+start  %userprofile%/desktop/report.html
